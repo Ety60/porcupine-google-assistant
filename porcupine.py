@@ -6,7 +6,7 @@ class Porcupine:
 
     def __init__(self):
         self.porcupine = pvporcupine.create(
-            access_key='bhWkWbrh/ydjsJt8oIRKhOqHKYhP2voaaAuVybacnyPRjOfA/U1f7A==',
+            access_key={ACCES_KEY},
             keywords=['picovoice', 'bumblebee','hey siri','Charlie']
         )
 
