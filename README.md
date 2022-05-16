@@ -1,1 +1,1 @@
-# porcupine-google-assistant
+# Google assistant with porcupine hotword detection
