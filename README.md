@@ -15,6 +15,11 @@ In the terminal type:
 `
 pip install pvporcupine
 `
+
+#### Clone the current directory into your Downloads folder
+`
+
+
 #### Create an account on picovoice.ai
 Go to [picovoice.ai](https://console.picovoice.ai/signup) and follow the signup instructions.
 
