@@ -7,7 +7,7 @@ class Porcupine:
     def __init__(self):
         self.porcupine = pvporcupine.create(
             access_key="YOUR_ACCES_KEY",
-            keywords=['picovoice', 'bumblebee','hey siri','Charlie']
+            keywords=['picovoice', 'bumblebee','hey siri']
         )
 
         self.pa = pyaudio.PyAudio()
