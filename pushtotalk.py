@@ -58,6 +58,7 @@ class SampleAssistant(object):
 
     def __init__(self, conversation_stream, channel, deadline_sec):
         self.conversation_stream = conversation_stream
+        self.continue_conversation = False
 
         # Opaque blob provided in ConverseResponse that,
         # when provided in a follow-up ConverseRequest,
@@ -97,7 +98,7 @@ class SampleAssistant(object):
 
         Returns: True if conversation should continue.
         """
-        continue_conversation = False
+        self.continue_conversation = False
         print(str(self.conversation_stream))
 
         self.conversation_stream.start_recording()
@@ -138,13 +139,13 @@ class SampleAssistant(object):
                     resp.result.volume_percentage
                 )
             if resp.result.microphone_mode == DIALOG_FOLLOW_ON:
-                continue_conversation = True
+                self.continue_conversation = True
                 logging.info('Expecting follow-on query from user.')
             elif resp.result.microphone_mode == CLOSE_MICROPHONE:
-                continue_conversation = False
+                self.continue_conversation = False
         logging.info('Finished playing assistant response.')
         self.conversation_stream.stop_playback()
-        return continue_conversation
+        return self.continue_conversation
 
     def gen_converse_requests(self):
         """Yields: ConverseRequest messages to send to the API."""
@@ -291,6 +292,10 @@ def main(api_endpoint, credentials, verbose,
             #Start assistant.
             assistant.converse()
 
+            # If the assistant expect a direct response, do not close the conversation.
+            while assistant.continue_conversation:
+                assistant.converse()
+
             # Close the conversation stream so porcupine can use the mic.
             conversation_stream.close()
 
@@ -298,3 +303,4 @@ def main(api_endpoint, credentials, verbose,
 
 if __name__ == '__main__':
     main()
+    
